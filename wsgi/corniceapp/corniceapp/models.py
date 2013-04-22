@@ -34,6 +34,6 @@ def initialize_db(engine):
     _Base.metadata.bind = engine
     _Base.metadata.drop_all()
     _Base.metadata.create_all(engine, checkfirst=False)
-    DBSession.add(Node.from_dict({'text': 'check out tmux, it is a terminal multiplexer'}))
+    DBSession.add(Note.from_dict({'text': 'check out tmux, it is a terminal multiplexer'}))
     DBSession.commit()
 
