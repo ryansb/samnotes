@@ -1,8 +1,9 @@
 """Main entry point
 """
 from pyramid.config import Configurator
-from sqlalchemy import engine
+from sqlalchemy import create_engine
 from corniceapp.models import initialize_db
+import os
 
 
 db_url = os.environ.get("OPENSHIFT_MYSQL_DB_URL") + 'someapp'
