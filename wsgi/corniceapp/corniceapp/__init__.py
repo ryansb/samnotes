@@ -5,8 +5,10 @@ from sqlalchemy import create_engine
 from corniceapp.models import initialize_db
 import os
 
+db_url = "sqlite://"
 
-db_url = os.environ.get("OPENSHIFT_MYSQL_DB_URL") + 'someapp'
+if os.environ.get("OPENSHIFT_MYSQL_DB_URL"):
+    db_url = os.environ.get("OPENSHIFT_MYSQL_DB_URL") + 'someapp'
 
 
 def main(global_config, **settings):

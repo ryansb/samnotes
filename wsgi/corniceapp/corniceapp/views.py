@@ -13,7 +13,10 @@ def get_info(request):
     """Returns Hello in JSON."""
     return {'Hello': 'World'}
 
-samnotes = Service(name='samnotes', path='/sam/notes', description="stuff sam should remember")
+
+samnotes = Service(name='samnotes', path='/sam/notes',
+                   description="stuff sam should remember")
+
 
 @samnotes.get()
 def get_info(request):
@@ -26,7 +29,9 @@ def get_info(request):
         ]
     }
 
-onotes = Service(name='onotes', path='/notes', description="stuff sam should remember")
+onotes = Service(name='onotes', path='/notes',
+                 description="stuff sam should remember")
+
 
 @onotes.get()
 def get_note(request):
@@ -36,6 +41,7 @@ def get_note(request):
         ]
     }
 
+
 @onotes.put()
 def put_note(request):
     work = Note.from_dict(request.json)
@@ -44,10 +50,16 @@ def put_note(request):
     return work.to_dict()
 
 
-"""
-specnotes = Service(name='specnotes', path='/notes/{nid}', description="stuff sam should remember")
-@specnotes.post()
-def put_note(request):
-    work = DBSession.query(Note).filter(Note.id==request.matchdict['nid']).first()
-"""
+specnotes = Service(name='specnotes', path='/notes/{nid}',
+                    description="stuff sam should remember")
 
+
+@specnotes.post()
+def post_note(request):
+    work = DBSession.query(Note).filter(Note.id == request.matchdict['nid']).first()
+    if request.json.get('text', None):
+        work.text = request.json['text']
+    DBSession.add(work)
+    DBSession.commit()
+
+    return work.to_dict()
