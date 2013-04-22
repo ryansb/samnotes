@@ -29,9 +29,25 @@ def get_info(request):
 onotes = Service(name='onotes', path='/notes', description="stuff sam should remember")
 
 @onotes.get()
-def get_info(request):
+def get_note(request):
     return {
         'notes': [
             n.to_dict() for n in DBSession.query(Note).all()
         ]
     }
+
+@onotes.put()
+def put_note(request):
+    work = Note.from_dict(request.json)
+    DBSession.add(work)
+    DBSession.commit()
+    return work.to_dict()
+
+
+"""
+specnotes = Service(name='specnotes', path='/notes/{nid}', description="stuff sam should remember")
+@specnotes.post()
+def put_note(request):
+    work = DBSession.query(Note).filter(Note.id==request.matchdict['nid']).first()
+"""
+
