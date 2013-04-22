@@ -25,3 +25,13 @@ def get_info(request):
             "iftop"
         ]
     }
+
+onotes = Service(name='onotes', path='/notes', description="stuff sam should remember")
+
+@onotes.get()
+def get_info(request):
+    return {
+        'notes': [
+            n.to_dict() for n in DBSession.query(Note).all()
+        ]
+    }
