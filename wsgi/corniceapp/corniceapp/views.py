@@ -2,6 +2,8 @@
 """
 from cornice import Service
 
+from corniceapp.models import DBSession, Note
+
 
 hello = Service(name='hello', path='/', description="Simplest app")
 
