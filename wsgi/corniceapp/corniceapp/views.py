@@ -65,3 +65,10 @@ def post_note(request):
     DBSession.commit()
 
     return work.to_dict()
+
+@specnotes.delete()
+def del_note(request):
+    work = DBSession.query(Note).filter(Note.id == request.matchdict['nid']).first()
+    DBSession.delete(work)
+    DBSession.commit()
+    return "Success"
