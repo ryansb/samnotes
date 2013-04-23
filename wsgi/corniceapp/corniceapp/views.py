@@ -12,7 +12,7 @@ hello = Service(name='hello', path='/', description="Simplest app")
 @hello.get()
 def get_info(request):
     """Returns Hello in JSON."""
-    return {'Hello': 'World'}
+    return {'Hello': 'Sam'}
 
 
 samnotes = Service(name='samnotes', path='/sam/notes',
