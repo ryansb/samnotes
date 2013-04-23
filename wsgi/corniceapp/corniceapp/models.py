@@ -17,6 +17,7 @@ class Note(_Base):
         return dict(
             id=self.id,
             text=self.text,
+            created_at=self.created_at.strftime("%m-%d-%y - %H:%M")
         )
 
     @classmethod
