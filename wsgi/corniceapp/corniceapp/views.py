@@ -1,6 +1,7 @@
 """ Cornice services.
 """
 from cornice import Service
+from datetime import datetime
 
 from corniceapp.models import DBSession, Note
 
@@ -59,6 +60,7 @@ def post_note(request):
     work = DBSession.query(Note).filter(Note.id == request.matchdict['nid']).first()
     if request.json.get('text', None):
         work.text = request.json['text']
+    work.modified_at = datetime.now()
     DBSession.add(work)
     DBSession.commit()
 

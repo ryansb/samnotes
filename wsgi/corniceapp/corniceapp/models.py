@@ -11,19 +11,22 @@ class Note(_Base):
 
     id = Column(Integer, primary_key=True)
     created_at = Column(DateTime())
+    modified_at = Column(DateTime())
     text = Column(Text())
 
     def to_dict(self):
         return dict(
             id=self.id,
             text=self.text,
-            created_at=self.created_at.strftime("%m-%d-%y - %H:%M")
+            created_at=self.created_at.strftime("%m-%d-%y - %H:%M"),
+            modified_at=self.modified_at.strftime("%m-%d-%y - %H:%M"),
         )
 
     @classmethod
     def from_dict(cls, new):
         n = Note()
         n.created_at = datetime.now()
+        n.modified_at = datetime.now()
         n.text = new.get('text', '')
         return n
 
